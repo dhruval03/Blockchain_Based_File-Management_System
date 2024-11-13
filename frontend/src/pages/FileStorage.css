@@ -1,0 +1,207 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f8fc;
+  margin: 0;
+  padding: 0;
+  animation: fadeIn 1s ease-in-out; /* Page fade-in animation */
+}
+
+.file-storage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Upload Page Background */
+.upload-container {
+  background-image: url('/assets/upload.jpg'); /* Update the path as necessary */
+  background-size: cover;
+  background-position: center;
+  height: 81.51vh; /* Full height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Title Styles */
+h1.title {
+  text-align: center;
+  color: #000000;
+  margin-bottom: 20px;
+  animation: slideDown 0.7s ease-out; /* Slide down effect for title */
+}
+
+/* Card Styles */
+.card {
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent for better background blending */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.7s ease-out; /* Fade-in up animation for cards */
+}
+
+.card h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Input and Button Styles */
+input[type="file"],
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease; /* Smooth border color transition */
+}
+
+input[type="file"]:focus,
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #007bff; /* Highlight border on focus */
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Button transition */
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Scale up on hover */
+}
+
+button:active {
+  transform: scale(0.95); /* Scale down on click */
+}
+
+/* Retrieved File and List Section */
+.retrieved-file,
+.file-list {
+  margin-top: 20px;
+}
+
+.retrieved-file p,
+.file-item p {
+  margin: 5px 0;
+}
+
+.file-link {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover animation */
+}
+
+.file-link:hover {
+  background-color: #218838;
+  transform: scale(1.05); /* Scale up on hover */
+}
+
+/* File Actions */
+.file-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 20px;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.icon:hover {
+  color: #0056b3;
+}
+
+/* File Item Styles */
+.file-item {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .file-storage-container {
+      padding: 10px;
+  }
+
+  button {
+      font-size: 14px;
+  }
+
+  input[type="file"],
+  input[type="text"],
+  input[type="number"] {
+      padding: 8px;
+  }
+}
+
+
+
+
+
+
+
+/* Custom styles for the Toastify close button */
+.Toastify__close-button {
+  width: 10%;
+}
+
+.Toastify__close-button:hover {
+  background-color: #8a8a8a67;
+}

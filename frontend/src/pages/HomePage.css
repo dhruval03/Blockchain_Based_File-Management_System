@@ -1,0 +1,64 @@
+/* HomePage.css */
+
+/* Full-page container */
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 81.51vh;
+    background: url('/assets/home_bg.jpg') no-repeat center center/cover; /* Add background image */
+}
+
+/* Hero section styling */
+.hero-section {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #fff; /* White text for contrast */
+}
+
+.hero-title {
+    font-size: 3rem; /* Larger font for the title */
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for better readability */
+}
+
+.hero-subtitle {
+    font-size: 1.5rem; /* Subtitle font size */
+    margin-top: 10px;
+}
+
+/* Features section styling */
+.features-section {
+    display: flex;
+    justify-content: space-around; /* Space out feature cards */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+}
+
+.feature-card {
+    background-color: rgba(255, 255, 255, 0.9); /* Light background for cards */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Card shadow for depth */
+    margin: 20px;
+    padding: 20px;
+    flex: 1 1 30%; /* Allow 3 cards in a row */
+    max-width: 300px; /* Maximum width for each card */
+    transition: transform 0.3s; /* Animation for hover effect */
+}
+
+.feature-card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.feature-card h3 {
+    font-size: 1.5rem; /* Card title size */
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 1rem; /* Card description size */
+    color: #333; /* Dark text for readability */
+}
