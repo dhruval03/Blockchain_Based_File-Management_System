@@ -6,9 +6,9 @@ contract FileStorage {
         string ipfsHash;
         address owner;
         uint256 timestamp;
-        string fileName;   // Name of the file
-        string fileType;   // Type of the file (e.g., "pdf", "jpg")
-        string description; // Description of the file
+        string fileName;   
+        string fileType;   
+        string description;
     }
 
     mapping(uint256 => File) public files;
@@ -39,7 +39,7 @@ contract FileStorage {
         files[fileCount] = File({
             ipfsHash: _ipfsHash,
             owner: msg.sender,
-            timestamp: block.timestamp, // Store timestamp of file upload
+            timestamp: block.timestamp,
             fileName: _fileName,
             fileType: _fileType,
             description: _description
