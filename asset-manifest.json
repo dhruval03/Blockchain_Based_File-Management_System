@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/Blockchain_Based_File-Management_System/static/css/main.6f7b4156.css",
+    "main.js": "/Blockchain_Based_File-Management_System/static/js/main.f7367191.js",
+    "static/js/453.8ab44547.chunk.js": "/Blockchain_Based_File-Management_System/static/js/453.8ab44547.chunk.js",
+    "static/media/home_bg.jpg": "/Blockchain_Based_File-Management_System/static/media/home_bg.cfb5ab49b0da19515033.jpg",
+    "static/media/upload.jpg": "/Blockchain_Based_File-Management_System/static/media/upload.a8dd205356d02fffd6bc.jpg",
+    "static/media/login_bg.jpg": "/Blockchain_Based_File-Management_System/static/media/login_bg.2e0545cfdff36de17e44.jpg",
+    "index.html": "/Blockchain_Based_File-Management_System/index.html",
+    "main.6f7b4156.css.map": "/Blockchain_Based_File-Management_System/static/css/main.6f7b4156.css.map",
+    "main.f7367191.js.map": "/Blockchain_Based_File-Management_System/static/js/main.f7367191.js.map",
+    "453.8ab44547.chunk.js.map": "/Blockchain_Based_File-Management_System/static/js/453.8ab44547.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6f7b4156.css",
+    "static/js/main.f7367191.js"
+  ]
+}
