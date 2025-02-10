@@ -33,7 +33,7 @@ const LoginPage = ({ setAccount, setPrivateKey }) => {
                         <input
                             type="text"
                             className="form-control form-control-lg glass-input"
-                            placeholder="Enter your Private Key"
+                            placeholder="Enter your Key"
                             value={privateKey}
                             onChange={(e) => setPrivateKeyLocal(e.target.value)}
                         />
