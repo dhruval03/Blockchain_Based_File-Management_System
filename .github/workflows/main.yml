@@ -1,4 +1,4 @@
-name: CI/CD for Blockchain-Based File Storage
+name: CI/CD for Blockchain-Based File Management System
 
 on:
   push:
@@ -11,6 +11,7 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -19,16 +20,24 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'npm'
+
+      - name: Fix Dependency Issues
+        run: npm install --legacy-peer-deps
 
       - name: Install Dependencies
         run: npm install
 
+      - name: Compile Smart Contracts
+        run: npx hardhat compile
+
       - name: Run Tests
-        run: npm test
+        run: npx hardhat test
 
   deploy-smart-contracts:
     needs: build-and-test
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -39,14 +48,12 @@ jobs:
           node-version: 18
 
       - name: Install Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
-      - name: Set up Hardhat Environment
-        run: |
-          npm install --save-dev hardhat
-          npx hardhat compile
+      - name: Compile Smart Contracts
+        run: npx hardhat compile
 
-      - name: Deploy Smart Contracts (Ethereum Testnet)
+      - name: Deploy Smart Contracts to Testnet
         env:
           PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
           INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
@@ -56,12 +63,13 @@ jobs:
   deploy-frontend:
     needs: deploy-smart-contracts
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Install Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build Frontend
         run: npm run build
