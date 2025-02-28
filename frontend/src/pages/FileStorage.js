@@ -8,9 +8,9 @@ import abi from '../FileStorageABI.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './FileStorage.css';
 
-const CONTRACT_ADDRESS = "0x3F3D8725069068C5E1A276813806A0a2DC5876A2";
-const PINATA_API_KEY = "7915cbfec11994cf18ff";
-const PINATA_SECRET_KEY = "f8d9eb7c41fb80613f746402b66be043cb8cfe54a5cf8fdcba4ec241a82188a7";
+const CONTRACT_ADDRESS = "0x95ce41Fe4be3034A8873543481ae1e71A59D37F0";
+const PINATA_API_KEY = "153f3971c2476bcdeb52";
+const PINATA_SECRET_KEY = "085fe5572c5a923b691799caab6df5b6284f5c306a407bfc2dc939bd65e45dec";
 
 const UploadFilePage = ({ account, setAccount }) => {
     const [file, setFile] = useState(null);
