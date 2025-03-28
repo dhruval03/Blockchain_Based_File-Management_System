@@ -46,7 +46,6 @@ contract FileStorage {
         });
         userFiles[msg.sender].push(fileCount);
 
-        // Emit event
         emit FileAdded(fileCount, msg.sender, _ipfsHash, block.timestamp, _fileName, _fileType, _description);
     }
 

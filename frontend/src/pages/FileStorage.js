@@ -8,21 +8,63 @@ import abi from '../FileStorageABI.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './FileStorage.css';
 
-const CONTRACT_ADDRESS = "0x3F3D8725069068C5E1A276813806A0a2DC5876A2";
-const PINATA_API_KEY = "7915cbfec11994cf18ff";
-const PINATA_SECRET_KEY = "f8d9eb7c41fb80613f746402b66be043cb8cfe54a5cf8fdcba4ec241a82188a7";
+const CONTRACT_ADDRESS = "0x72FE5a5B8d894CD1360C6CB035F6F89aa5b3cA63";
+const PINATA_API_KEY = "f8e3104ab1788d402885";
+const PINATA_SECRET_KEY = "6964c6854c5bf87e95dcb5a3753a3cee2aef2ac411b8b71fe5aaaabd156490c1";
+const ETH_RATE_PER_KB = 0.00000000001957;
 
 const UploadFilePage = ({ account, setAccount }) => {
     const [file, setFile] = useState(null);
     const [ipfsHash, setIpfsHash] = useState('');
     const [description, setDescription] = useState('');
-    const navigate = useNavigate();  
+    const navigate = useNavigate();
+
+    const handlePayment = async (costInEth) => {
+        try {
+            if (!window.ethereum) throw new Error("MetaMask is not installed.");
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
+            const transaction = await signer.sendTransaction({
+                to: CONTRACT_ADDRESS,
+                value: ethers.parseEther(costInEth.toString())
+            });
+            await transaction.wait();
+            toast.success('Payment successful. Uploading file to IPFS...');
+            return true;
+        } catch (error) {
+            console.error('Payment failed:', error);
+            toast.error('Payment failed. Please try again.');
+            return false;
+        }
+    };
 
     const uploadToIPFS = async () => {
         if (!file) {
-            toast.error('Please select a file to upload.'); 
+            toast.error('Please select a file to upload.');
             return;
         }
+
+        const fileSizeInKB = file.size / 1024;
+        if (fileSizeInKB <= 0) {
+            toast.error('File size is too small or invalid.');
+            return;
+        }
+
+        const costInEth = fileSizeInKB * ETH_RATE_PER_KB;
+        const formattedCost = costInEth.toFixed(18);
+
+        const userConfirmed = window.confirm(
+            `The cost of storing this file on IPFS is approximately ${formattedCost} ETH.\nDo you want to proceed?`
+        );
+
+        if (!userConfirmed) {
+            toast.info('File upload cancelled by the user.');
+            return;
+        }
+
+        const paymentSuccess = await handlePayment(formattedCost);
+        if (!paymentSuccess) return;
 
         const formData = new FormData();
         formData.append('file', file);
@@ -38,50 +80,81 @@ const UploadFilePage = ({ account, setAccount }) => {
 
             const hash = response.data.IpfsHash;
             setIpfsHash(hash);
-            toast.success(`File uploaded! IPFS Hash: ${hash}`); 
+            toast.success(`File uploaded! IPFS Hash: ${hash}`);
         } catch (err) {
-            console.error("Error uploading file to IPFS:", err);
-            toast.error("Error uploading file to IPFS. Please try again."); 
+            console.error('Error uploading file to IPFS:', err);
+            toast.error('Error uploading file to IPFS. Please try again.');
         }
     };
+    
 
     const addFile = async () => {
         if (!account) {
-            toast.error('Please login with your Ganache account first.'); 
+            toast.error('Please login with your account first.');
             return;
         }
-
+    
         // Validation: Check if ipfsHash is empty
         if (!ipfsHash) {
-            toast.error('IPFS Hash is empty. Please upload a file first.'); // Use toast for error notification
+            toast.error('IPFS Hash is empty. Please upload a file first.');
             return;
         }
-
+    
         // Validation: Check if the description is empty
         if (!description) {
-            toast.error('Please enter a description for the file.'); // Use toast for error notification
+            toast.error('Please enter a description for the file.');
             return;
         }
-
+    
         // Automatically set file name and type from the uploaded file
-        const fileName = file.name;
-        const fileType = file.type;
-
+        const fileName = file.name || "Unnamed File";
+        const fileType = file.type || "Unknown Type";
+    
+        // Calculate the metadata size in bytes
+        const metadataSizeBytes = new TextEncoder().encode(`${ipfsHash}${fileName}${fileType}${description}`).length;
+    
+        // Estimate gas cost based on metadata size
+        const estimatedGas = 21000 + metadataSizeBytes * 68; // Base gas + dynamic cost for storage
+    
+        // Use a fixed gas price of 20 gwei, manually converting gwei to wei (1 gwei = 1,000,000,000 wei)
+        const fixedGasPriceWei = 20 * 10 ** 9; // 20 gwei in wei
+        const estimatedCostInWei = fixedGasPriceWei * estimatedGas;
+    
+        // Calculate additional 7% charges
+        const extraChargesInWei = (estimatedCostInWei * 7) / 100;
+    
+        // Total cost including extra charges
+        const totalCostInWei = estimatedCostInWei + extraChargesInWei;
+        const totalCostInEth = totalCostInWei / 10 ** 18;
+    
+        // Display cost confirmation to the user
+        const userConfirmed = window.confirm(
+            `The estimated cost of storing this file's metadata on the blockchain is approximately ${totalCostInEth.toFixed(6)} ETH.\n\nMetadata Details:\n- File Name: ${fileName}\n- File Type: ${fileType}\n- Description Length: ${description.length} characters\n- IPFS Hash: ${ipfsHash}\n\nDo you want to proceed?`
+        );
+    
+        if (!userConfirmed) {
+            toast.info('Metadata storage cancelled by the user.');
+            return;
+        }
+    
         const contract = new ethers.Contract(CONTRACT_ADDRESS, abi, account);
-        
+    
         try {
             const tx = await contract.addFile(ipfsHash, fileName, fileType, description);
             await tx.wait();
-            toast.success("File metadata stored successfully!"); 
+            toast.success("File metadata stored successfully!");
             setIpfsHash('');
-            setFile(null); 
+            setFile(null);
             setDescription('');
         } catch (err) {
             console.error("Error storing file metadata:", err);
-            toast.error("Error storing file metadata. Please ensure the contract is deployed and you have entered all required fields."); // Use toast for error notification
+            toast.error("Error storing file metadata. Please ensure the contract is deployed and you have entered all required fields.");
         }
     };
-
+  
+    
+    
+    
     return (
         <div className="upload-container"> 
             <ToastContainer /> 

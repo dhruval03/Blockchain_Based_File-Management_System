@@ -8,11 +8,11 @@ import abi from '../FileStorageABI.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios'; 
 
-const CONTRACT_ADDRESS = "0x3F3D8725069068C5E1A276813806A0a2DC5876A2";
+const CONTRACT_ADDRESS = "0x72FE5a5B8d894CD1360C6CB035F6F89aa5b3cA63";
 
 // Pinata credentials (replace with your own API key and secret)
-const PINATA_API_KEY = '7915cbfec11994cf18ff'; 
-const PINATA_SECRET_API_KEY = 'f8d9eb7c41fb80613f746402b66be043cb8cfe54a5cf8fdcba4ec241a82188a7';
+const PINATA_API_KEY = "f8e3104ab1788d402885";
+const PINATA_SECRET_API_KEY = "6964c6854c5bf87e95dcb5a3753a3cee2aef2ac411b8b71fe5aaaabd156490c1";
 
 // Function to unpin the file from Pinata
 const unpinFileFromPinata = async (hash) => {

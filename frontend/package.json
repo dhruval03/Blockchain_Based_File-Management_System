@@ -2,15 +2,20 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dhruval03.github.io/Blockchain_Based_File-Management_System",
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.7.5",
+    "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "ethers": "^6.1.0",
+    "express": "^4.21.2",
     "frontend": "file:",
+    "https": "^1.0.0",
+    "https-localhost": "^4.7.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
@@ -18,7 +23,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env HTTPS=true SSL_CRT_FILE=../ssl/cert.pem SSL_KEY_FILE=../ssl/key.pem react-scripts start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
@@ -42,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

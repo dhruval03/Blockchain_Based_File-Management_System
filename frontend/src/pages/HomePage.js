@@ -5,7 +5,7 @@ const HomePage = ({ account, setAccount }) => {
     return (
             <div className="homepage-container">
                 <div className="hero-section">
-                    <h1 className="hero-title">Welcome to the Decentralized File Storage App</h1>
+                    <h1 className="hero-title">Welcome to the FileLedger</h1>
                     <p className="hero-subtitle">Securely store and manage your files with ease.</p>
                 </div>
                 <div className="features-section">
