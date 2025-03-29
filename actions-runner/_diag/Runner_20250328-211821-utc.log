@@ -121,3 +121,6 @@
 [2025-03-28 21:18:24Z INFO JobDispatcher] Set runner/worker IPC timeout to 30 seconds.
 [2025-03-28 21:18:24Z INFO RSAEncryptedFileKeyManager] Loading RSA key parameters from file E:\blockchain-file-storage\actions-runner\.credentials_rsaparams
 [2025-03-28 21:18:25Z INFO GitHubActionsService] AAD Correlation ID for this token request: Unknown
+[2025-03-28 21:47:08Z INFO HostContext] Runner will be shutdown for UserCancelled
+[2025-03-28 21:47:10Z WARN GitHubActionsService] GET request to https://broker.actions.githubusercontent.com/message?sessionId=455ef6c6-d809-486c-9a05-5be14c29b132&status=Online&runnerVersion=2.323.0&os=Windows&architecture=X64&disableUpdate=false has been cancelled.
+[2025-03-28 21:47:10Z ERR  BrokerServer] Catch exception during request
