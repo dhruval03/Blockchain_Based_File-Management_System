@@ -31,7 +31,7 @@ const UploadFilePage = ({ account, setAccount }) => {
             });
             await transaction.wait();
             toast.success('Payment successful. Uploading file to IPFS...');
-            return true;
+            return true; 
         } catch (error) {
             console.error('Payment failed:', error);
             toast.error('Payment failed. Please try again.');
